@@ -11,11 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.TableGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class User implements Comparable<User>{
 
-	@Id @GeneratedValue(strategy = GenerationType.TABLE)
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private int id;
 	
 	private String username;
@@ -23,6 +27,8 @@ public class User implements Comparable<User>{
 	private String password;
 	
 	private String email;
+	
+	@JsonIgnoreProperties("users")
 	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role")
 	private Set<Role> roles = new TreeSet<Role>();

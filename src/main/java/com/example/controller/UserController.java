@@ -29,17 +29,22 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/user/{id}",method=RequestMethod.GET)
+	@ResponseBody
 	public User delete(@PathVariable int id){
-		return useService.getById(id);
+		User user = useService.getById(id);
+		System.out.println(user);
+		return user;
 	}
 	
 	@RequestMapping(value="/save",method=RequestMethod.GET)
-	public void save(){
+	@ResponseBody
+	public String save(){
 		User user = new User(1,"manoj","1234","manojsilwal1@gmail.com");
 		Set<Role> roles = new TreeSet<Role>();
 		roles.add(new Role(2,"ADMIN"));
 		user.setRoles(roles);
 		 useService.save(user);
+		 return  user.getUsername();
 	}
 
 }

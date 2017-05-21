@@ -9,16 +9,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.TableGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Role implements Comparable<Role>{
-	@Id @GeneratedValue(strategy = GenerationType.TABLE)
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	private int id;
 	
 	private String type;
 	
 	@ManyToMany(mappedBy = "roles")
+	@JsonIgnoreProperties("roles")
 	private Set<User> users = new TreeSet<User>();
+	
+	public Role(){}
 
 	public Role(int id, String role) {
 		// TODO Auto-generated constructor stub
